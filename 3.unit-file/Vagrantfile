@@ -61,7 +61,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/opt/kafka_2.11-2.4.0/bin/zookeeper-server-start.sh -daemon /opt/kafka_2.11-2.4.0/config/zookeeper.properties
+ExecStart=/opt/kafka_2.11-2.4.0/bin/zookeeper-server-start.sh /opt/kafka_2.11-2.4.0/config/zookeeper.properties
 ExecStop=/opt/kafka_2.11-2.4.0/bin/zookeeper-server-stop.sh
 
 [Install]
@@ -77,9 +77,10 @@ After=zookeeper.service
 [Service]
 Type=simple
 ExecStart=/opt/kafka_2.11-2.4.0/bin/kafka-server-start.sh /opt/kafka_2.11-2.4.0/config/server.properties
-ExecStop=/opt/kafka_2.11-2.4.0/bin/kafka-server-stop.sh
-Restart=on-abnormal
-MemoryLimit=200m
+ExecStop=-/opt/kafka_2.11-2.4.0/bin/kafka-server-stop.sh
+Restart=on-failure
+SuccessExitStatus=143
+MemoryLimit=200M
 LimitAS=3G
 LimitCPU=50
 LimitNOFILE=500
