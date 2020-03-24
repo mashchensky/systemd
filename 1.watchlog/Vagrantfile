@@ -6,9 +6,8 @@ MACHINES = {
         :box_name => "centos/7",
         :ip_addr => '192.168.11.101',
 	:disks => {
-			}
-
-		
+      }
+      
   },
 }
 
@@ -56,6 +55,7 @@ EOF
 
           cat >/opt/watchlog.sh<<'EOF'
 #!/bin/bash
+
 WORD=$1
 LOG=$2
 DATE=`date`
@@ -81,6 +81,7 @@ EOF
           cat >/etc/systemd/system/watchlog.service<<'EOF'
 [Unit]
 Description=My watchlog service
+
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/sysconfig/watchlog
@@ -92,10 +93,10 @@ EOF
 Description=Run watchlog script every 30 second
 [Timer]
 # Run every 30 second
+OnBootSec=10
 OnUnitActiveSec=30
-Unit=watchlog.service
 [Install]
-WantedBy=multi-user.target
+WantedBy=timers.target
 EOF
 
           systemctl start watchlog.timer
