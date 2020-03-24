@@ -77,7 +77,7 @@ After=zookeeper.service
 [Service]
 Type=simple
 ExecStart=/opt/kafka_2.11-2.4.0/bin/kafka-server-start.sh /opt/kafka_2.11-2.4.0/config/server.properties
-ExecStop=-/opt/kafka_2.11-2.4.0/bin/kafka-server-stop.sh
+ExecStop=/opt/kafka_2.11-2.4.0/bin/kafka-server-stop.sh
 Restart=on-failure
 SuccessExitStatus=143
 MemoryLimit=200M
